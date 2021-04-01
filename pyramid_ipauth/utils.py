@@ -12,8 +12,6 @@ import socket
 
 from netaddr import IPAddress, IPNetwork, IPGlob, IPRange, IPSet
 
-from pyramid.compat import integer_types, string_types
-
 #  This is used to split a string on an optional comma,
 #  followed by any amount of whitespace.
 _COMMA_OR_WHITESPACE = re.compile(r"(?:,\s*)|(?:\s+)")
@@ -95,10 +93,10 @@ def make_ip_set(ipaddrs):
     if ipaddrs is None:
         return IPSet()
     # Integers represent a single address.
-    if isinstance(ipaddrs, integer_types):
+    if isinstance(ipaddrs, int):
         return IPSet((IPAddress(ipaddrs),))
     # Strings get parsed as per parse_ip_set
-    if isinstance(ipaddrs, string_types):
+    if isinstance(ipaddrs, str):
         return parse_ip_set(ipaddrs)
     # Other netaddr types can be converted into a set.
     if isinstance(ipaddrs, (IPAddress, IPNetwork)):
